@@ -262,6 +262,43 @@ const deployedContracts = {
       ],
       inheritedFunctions: {},
     },
+    Season1Challenge2Solution: {
+      address: "0xca271fc6fb2e5243A0aDA50483E22431E6AACc81",
+      abi: [
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_season1Challenge2",
+              type: "address",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "constructor",
+        },
+        {
+          inputs: [],
+          name: "mintFlag",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "season1Challenge2",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+      ],
+      inheritedFunctions: {},
+    },
     Season1Challenge3: {
       address: "0xe76494D66ec1A0B69A48139Aa166Ae37c3A476Fe",
       abi: [
@@ -295,6 +332,23 @@ const deployedContracts = {
           ],
           stateMutability: "view",
           type: "function",
+        },
+      ],
+      inheritedFunctions: {},
+    },
+    Season1Challenge3Solution: {
+      address: "0x6d24F316062c267F54b2E2B52de9eE8E6a4c5246",
+      abi: [
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "season1Challenge3",
+              type: "address",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "constructor",
         },
       ],
       inheritedFunctions: {},
