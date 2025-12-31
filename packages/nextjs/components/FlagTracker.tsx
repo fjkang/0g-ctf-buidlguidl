@@ -18,6 +18,7 @@ export const FlagTracker = () => {
       minter: connectedAddress,
     },
     enabled: !!connectedAddress,
+    blocksBatchSize: 10_000,
   });
 
   const { data: userFlagsSeason2 } = useScaffoldEventHistory({
@@ -31,6 +32,7 @@ export const FlagTracker = () => {
       minter: connectedAddress,
     },
     enabled: !!connectedAddress,
+    blocksBatchSize: 10_000,
   });
 
   const userRegistered = userFlagsSeason1?.length > 0;
