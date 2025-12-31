@@ -1,0 +1,42 @@
+{
+  "language": "Solidity",
+  "sources": {
+    "contracts/INFTFlags.sol": {
+      "content": "//SPDX-License-Identifier: MIT\npragma solidity >=0.8.0 <0.9.0;\n\ninterface INFTFlags {\n    function mint(address _recipient, uint256 _challengeId) external;\n\n    function hasMinted(address _recipient, uint256 _challengeId) external view returns (bool);\n\n    function tokenIdCounter() external view returns (uint256);\n}\n"
+    },
+    "contracts/S1/Season1Challenge2.sol": {
+      "content": "//SPDX-License-Identifier: MIT\npragma solidity >=0.8.0 <0.9.0;\n\nimport \"../INFTFlags.sol\";\n\ncontract Season1Challenge2 {\n    address public nftContract;\n\n    constructor(address _nftContract) {\n        nftContract = _nftContract;\n    }\n\n    function justCallMe() public {\n        require(msg.sender != tx.origin, \"Not allowed\");\n        INFTFlags(nftContract).mint(tx.origin, 2);\n    }\n}\n"
+    },
+    "contracts/S1/Season1Challenge2Solution.sol": {
+      "content": "//SPDX-License-Identifier: MIT\npragma solidity >=0.8.0 <0.9.0;\n\nimport \"./Season1Challenge2.sol\";\n\ncontract Season1Challenge2Solution {\n    address public season1Challenge2;\n\n    constructor(address _season1Challenge2) {\n        season1Challenge2 = _season1Challenge2;\n    }\n\n    function mintFlag() public {\n        Season1Challenge2(season1Challenge2).justCallMe();\n    }\n}\n"
+    }
+  },
+  "settings": {
+    "optimizer": {
+      "enabled": true,
+      "runs": 200
+    },
+    "evmVersion": "paris",
+    "outputSelection": {
+      "*": {
+        "*": [
+          "abi",
+          "evm.bytecode",
+          "evm.deployedBytecode",
+          "evm.methodIdentifiers",
+          "metadata",
+          "devdoc",
+          "userdoc",
+          "storageLayout",
+          "evm.gasEstimates"
+        ],
+        "": [
+          "ast"
+        ]
+      }
+    },
+    "metadata": {
+      "useLiteralContent": true
+    }
+  }
+}

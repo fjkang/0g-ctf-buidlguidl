@@ -1,0 +1,89 @@
+{
+  "address": "0xca271fc6fb2e5243A0aDA50483E22431E6AACc81",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_season1Challenge2",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "inputs": [],
+      "name": "mintFlag",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "season1Challenge2",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "transactionHash": "0x47151ded5f73db942439e265c9f16c0333a7c4741044a13361b815fdd1af865d",
+  "receipt": {
+    "to": null,
+    "from": "0xdbD2bA19030a57431B3EB714784f1Bd68ECFf46D",
+    "contractAddress": "0xca271fc6fb2e5243A0aDA50483E22431E6AACc81",
+    "transactionIndex": 0,
+    "gasUsed": "132288",
+    "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+    "blockHash": "0xc588d378db9a3f75f14df5c8c0583f2652c977893f8f159c5de1593bf67ac580",
+    "transactionHash": "0x47151ded5f73db942439e265c9f16c0333a7c4741044a13361b815fdd1af865d",
+    "logs": [],
+    "blockNumber": 13804576,
+    "cumulativeGasUsed": "132288",
+    "status": 1,
+    "byzantium": true
+  },
+  "args": [
+    "0x041E689800B11F5938023615C186CB82692Ea800"
+  ],
+  "numDeployments": 1,
+  "solcInputHash": "fcdde26a63e6a549a82e907fb05736cf",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.20+commit.a1b79de6\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_season1Challenge2\",\"type\":\"address\"}],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"inputs\":[],\"name\":\"mintFlag\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"season1Challenge2\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"contracts/S1/Season1Challenge2Solution.sol\":\"Season1Challenge2Solution\"},\"evmVersion\":\"paris\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\",\"useLiteralContent\":true},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"contracts/INFTFlags.sol\":{\"content\":\"//SPDX-License-Identifier: MIT\\npragma solidity >=0.8.0 <0.9.0;\\n\\ninterface INFTFlags {\\n    function mint(address _recipient, uint256 _challengeId) external;\\n\\n    function hasMinted(address _recipient, uint256 _challengeId) external view returns (bool);\\n\\n    function tokenIdCounter() external view returns (uint256);\\n}\\n\",\"keccak256\":\"0x4e13871643c7d094b9435d0d4a513518298a94dbb181ec31a498ad3a80e82207\",\"license\":\"MIT\"},\"contracts/S1/Season1Challenge2.sol\":{\"content\":\"//SPDX-License-Identifier: MIT\\npragma solidity >=0.8.0 <0.9.0;\\n\\nimport \\\"../INFTFlags.sol\\\";\\n\\ncontract Season1Challenge2 {\\n    address public nftContract;\\n\\n    constructor(address _nftContract) {\\n        nftContract = _nftContract;\\n    }\\n\\n    function justCallMe() public {\\n        require(msg.sender != tx.origin, \\\"Not allowed\\\");\\n        INFTFlags(nftContract).mint(tx.origin, 2);\\n    }\\n}\\n\",\"keccak256\":\"0xe08ab17085de82a47792425a99e743d593ba9baab3288f1abd8c8cf63f3e4ccb\",\"license\":\"MIT\"},\"contracts/S1/Season1Challenge2Solution.sol\":{\"content\":\"//SPDX-License-Identifier: MIT\\npragma solidity >=0.8.0 <0.9.0;\\n\\nimport \\\"./Season1Challenge2.sol\\\";\\n\\ncontract Season1Challenge2Solution {\\n    address public season1Challenge2;\\n\\n    constructor(address _season1Challenge2) {\\n        season1Challenge2 = _season1Challenge2;\\n    }\\n\\n    function mintFlag() public {\\n        Season1Challenge2(season1Challenge2).justCallMe();\\n    }\\n}\\n\",\"keccak256\":\"0xbbe886911394329a360c692ee9f9a389e2c2f4b5cd204bdb51bdaef8deb3272e\",\"license\":\"MIT\"}},\"version\":1}",
+  "bytecode": "0x608060405234801561001057600080fd5b5060405161018e38038061018e83398101604081905261002f91610054565b600080546001600160a01b0319166001600160a01b0392909216919091179055610084565b60006020828403121561006657600080fd5b81516001600160a01b038116811461007d57600080fd5b9392505050565b60fc806100926000396000f3fe6080604052348015600f57600080fd5b506004361060325760003560e01c8063580f2f23146037578063e00d023f146065575b600080fd5b6000546049906001600160a01b031681565b6040516001600160a01b03909116815260200160405180910390f35b606b606d565b005b600080546040805163416582e360e11b815290516001600160a01b03909216926382cb05c69260048084019382900301818387803b15801560ad57600080fd5b505af115801560c0573d6000803e3d6000fd5b5050505056fea264697066735822122008e6ba96137177d142c0f50eee19cd2692ae62fce9830f1a232a3cac2350a3a164736f6c63430008140033",
+  "deployedBytecode": "0x6080604052348015600f57600080fd5b506004361060325760003560e01c8063580f2f23146037578063e00d023f146065575b600080fd5b6000546049906001600160a01b031681565b6040516001600160a01b03909116815260200160405180910390f35b606b606d565b005b600080546040805163416582e360e11b815290516001600160a01b03909216926382cb05c69260048084019382900301818387803b15801560ad57600080fd5b505af115801560c0573d6000803e3d6000fd5b5050505056fea264697066735822122008e6ba96137177d142c0f50eee19cd2692ae62fce9830f1a232a3cac2350a3a164736f6c63430008140033",
+  "devdoc": {
+    "kind": "dev",
+    "methods": {},
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {},
+    "version": 1
+  },
+  "storageLayout": {
+    "storage": [
+      {
+        "astId": 66,
+        "contract": "contracts/S1/Season1Challenge2Solution.sol:Season1Challenge2Solution",
+        "label": "season1Challenge2",
+        "offset": 0,
+        "slot": "0",
+        "type": "t_address"
+      }
+    ],
+    "types": {
+      "t_address": {
+        "encoding": "inplace",
+        "label": "address",
+        "numberOfBytes": "20"
+      }
+    }
+  }
+}
