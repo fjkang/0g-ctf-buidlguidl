@@ -1,0 +1,116 @@
+{
+  "address": "0x81c262aCE3534CF02ACDdf0896db12092C17A6E3",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_owner",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "owner",
+          "type": "address"
+        }
+      ],
+      "name": "OwnerChange",
+      "type": "event"
+    },
+    {
+      "inputs": [],
+      "name": "claimOwnership",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "owner",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "transactionHash": "0xeaa1922b097b1e53364acb8cb4eef30560e0c6fdee17a688d21459110b187663",
+  "receipt": {
+    "to": null,
+    "from": "0xdbD2bA19030a57431B3EB714784f1Bd68ECFf46D",
+    "contractAddress": "0x81c262aCE3534CF02ACDdf0896db12092C17A6E3",
+    "transactionIndex": 0,
+    "gasUsed": "128260",
+    "logsBloom": "0x00010000000000000000000000000000000000000000000100000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000000000000008000000000000000080000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000080000000000000000000000000000000000000100010000000000000000000000000000000000000",
+    "blockHash": "0x9f0bb33b9fe3dfa50f9a6745f35c4126bd77321d7a5d437075145eaef95ea148",
+    "transactionHash": "0xeaa1922b097b1e53364acb8cb4eef30560e0c6fdee17a688d21459110b187663",
+    "logs": [
+      {
+        "transactionIndex": 0,
+        "blockNumber": 13638746,
+        "transactionHash": "0xeaa1922b097b1e53364acb8cb4eef30560e0c6fdee17a688d21459110b187663",
+        "address": "0x81c262aCE3534CF02ACDdf0896db12092C17A6E3",
+        "topics": [
+          "0xb0e6698704f906b344e27d5c15e5c014e1fb1c960fae1d551b984e55e9ca49d9",
+          "0x000000000000000000000000dbd2ba19030a57431b3eb714784f1bd68ecff46d"
+        ],
+        "data": "0x",
+        "logIndex": 0,
+        "blockHash": "0x9f0bb33b9fe3dfa50f9a6745f35c4126bd77321d7a5d437075145eaef95ea148"
+      }
+    ],
+    "blockNumber": 13638746,
+    "cumulativeGasUsed": "128260",
+    "status": 1,
+    "byzantium": true
+  },
+  "args": [
+    "0xdbD2bA19030a57431B3EB714784f1Bd68ECFf46D"
+  ],
+  "numDeployments": 1,
+  "solcInputHash": "760304bfe83a38663d29b3559b4867ca",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.20+commit.a1b79de6\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_owner\",\"type\":\"address\"}],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"}],\"name\":\"OwnerChange\",\"type\":\"event\"},{\"inputs\":[],\"name\":\"claimOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"contracts/S1/Season1Challenge7.sol\":\"Season1Challenge7Delegate\"},\"evmVersion\":\"paris\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\",\"useLiteralContent\":true},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"contracts/INFTFlags.sol\":{\"content\":\"//SPDX-License-Identifier: MIT\\npragma solidity >=0.8.0 <0.9.0;\\n\\ninterface INFTFlags {\\n    function mint(address _recipient, uint256 _challengeId) external;\\n\\n    function hasMinted(address _recipient, uint256 _challengeId) external view returns (bool);\\n\\n    function tokenIdCounter() external view returns (uint256);\\n}\\n\",\"keccak256\":\"0x4e13871643c7d094b9435d0d4a513518298a94dbb181ec31a498ad3a80e82207\",\"license\":\"MIT\"},\"contracts/S1/Season1Challenge7.sol\":{\"content\":\"//SPDX-License-Identifier: MIT\\npragma solidity >=0.8.0 <0.9.0;\\n\\nimport \\\"../INFTFlags.sol\\\";\\n\\ncontract Season1Challenge7Delegate {\\n    address public owner;\\n    event OwnerChange(address indexed owner);\\n\\n    constructor(address _owner) {\\n        owner = _owner;\\n        emit OwnerChange(_owner);\\n    }\\n\\n    function claimOwnership() public {\\n        owner = msg.sender;\\n        emit OwnerChange(msg.sender);\\n    }\\n}\\n\\ncontract Season1Challenge7 {\\n    address public owner;\\n    Season1Challenge7Delegate delegate;\\n    address public nftContract;\\n\\n    constructor(address _nftContract, address _delegateAddress, address _owner) {\\n        nftContract = _nftContract;\\n        delegate = Season1Challenge7Delegate(_delegateAddress);\\n        owner = _owner;\\n    }\\n\\n    function mintFlag() public {\\n        require(msg.sender == owner, \\\"Only owner\\\");\\n        INFTFlags(nftContract).mint(msg.sender, 7);\\n    }\\n\\n    fallback() external {\\n        (bool result, ) = address(delegate).delegatecall(msg.data);\\n        if (result) {\\n            this;\\n        }\\n    }\\n}\\n\",\"keccak256\":\"0x5f2a2fecf0e07a1c4d6b04d782d650dc670176b9c0386a256aef1718bbd5e7a9\",\"license\":\"MIT\"}},\"version\":1}",
+  "bytecode": "0x608060405234801561001057600080fd5b5060405161019938038061019983398101604081905261002f9161007a565b600080546001600160a01b0319166001600160a01b038316908117825560405190917fb0e6698704f906b344e27d5c15e5c014e1fb1c960fae1d551b984e55e9ca49d991a2506100aa565b60006020828403121561008c57600080fd5b81516001600160a01b03811681146100a357600080fd5b9392505050565b60e1806100b86000396000f3fe6080604052348015600f57600080fd5b506004361060325760003560e01c80634e71e0c81460375780638da5cb5b14603f575b600080fd5b603d606d565b005b6000546051906001600160a01b031681565b6040516001600160a01b03909116815260200160405180910390f35b600080546001600160a01b03191633908117825560405190917fb0e6698704f906b344e27d5c15e5c014e1fb1c960fae1d551b984e55e9ca49d991a256fea26469706673582212205985b47f8285a15dfc5b65651486a427258936b8d3a1bcf736d5cc731929c63964736f6c63430008140033",
+  "deployedBytecode": "0x6080604052348015600f57600080fd5b506004361060325760003560e01c80634e71e0c81460375780638da5cb5b14603f575b600080fd5b603d606d565b005b6000546051906001600160a01b031681565b6040516001600160a01b03909116815260200160405180910390f35b600080546001600160a01b03191633908117825560405190917fb0e6698704f906b344e27d5c15e5c014e1fb1c960fae1d551b984e55e9ca49d991a256fea26469706673582212205985b47f8285a15dfc5b65651486a427258936b8d3a1bcf736d5cc731929c63964736f6c63430008140033",
+  "devdoc": {
+    "kind": "dev",
+    "methods": {},
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {},
+    "version": 1
+  },
+  "storageLayout": {
+    "storage": [
+      {
+        "astId": 5932,
+        "contract": "contracts/S1/Season1Challenge7.sol:Season1Challenge7Delegate",
+        "label": "owner",
+        "offset": 0,
+        "slot": "0",
+        "type": "t_address"
+      }
+    ],
+    "types": {
+      "t_address": {
+        "encoding": "inplace",
+        "label": "address",
+        "numberOfBytes": "20"
+      }
+    }
+  }
+}

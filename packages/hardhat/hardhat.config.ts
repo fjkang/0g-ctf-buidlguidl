@@ -58,6 +58,10 @@ const config: HardhatUserConfig = {
       url: "https://mainnet.rpc.buidlguidl.com",
       accounts: [deployerPrivateKey],
     },
+    zg_testnet: {
+      url: "https://evmrpc-testnet.0g.ai",
+      accounts: [deployerPrivateKey],
+    },
     sepolia: {
       url: `https://eth-sepolia.g.alchemy.com/v2/${providerApiKey}`,
       accounts: [deployerPrivateKey],
